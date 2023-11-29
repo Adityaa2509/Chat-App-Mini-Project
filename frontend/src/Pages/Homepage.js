@@ -25,21 +25,34 @@ function Homepage() {
   return (
     <Container maxW="xl" centerContent>
       <Box
-        d="flex"
-        justifyContent="center"
+          d="flex"
+        justifyContent={"center"}
         p={3}
-        bg="white"
         w="100%"
-        m="40px 0 15px 0"
-        borderRadius="lg"
-        borderWidth="1px"
+        m={"40px 0 15px 0"}
+        borderWidth={"1px"}
+        borderRadius={"lg"}
+        bg={"rgba( 255, 255, 255, 0.1 )"}
+        boxShadow="0 8px 32px 0 rgba( 31, 38, 135, 0.37 )"
+        backdropFilter="blur( 4px )"
+        border="1px solid rgba( 255, 255, 255, 0.18 )"
       >
-        <Text fontSize="4xl" fontFamily="Work sans" fontWeight={"extrabold"}>
+        <Text fontSize="4xl"
+          fontFamily={"Neucha"}
+          color="#efefef"
+          textAlign={"center"} fontWeight={"extrabold"}>
           CHATIFY
         </Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
-        <Tabs isFitted variant="soft-rounded" colorScheme="green">
+      <Box   borderRadius={"lg"}
+        bg={"rgba( 255, 255, 255, 0.1 )"}
+        boxShadow="0 8px 32px 0 rgba( 31, 38, 135, 0.37 )"
+        backdropFilter="blur( 4px )"
+        border="1px solid rgba( 255, 255, 255, 0.18 )"
+        w="100%"
+        p={4}
+        borderWidth="1px">
+        <Tabs isFitted variant="soft-rounded" colorScheme="green" fontFamily={"Neucha"}>
           <TabList mb="1em">
             <Tab>Login</Tab>
             <Tab>Sign Up</Tab>

@@ -128,7 +128,7 @@ function SideDrawer() {
         d="flex"
         justifyContent="space-between"
         alignItems="center"
-        bg="white"
+        bg="#f1e2e7"
         w="98%"
         p="5px 10px 5px 10px"
         borderWidth="3px"
@@ -140,18 +140,19 @@ function SideDrawer() {
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
             <i className="fas fa-search"></i>
-            <Text d={{ base: "none", md: "flex" }} px={4}>
+            <Text d={{ base: "none", md: "flex" }} px={4} 
+             fontFamily="Neucha" >
               Search User
             </Text>
           </Button>
         </Tooltip>
-        <Text fontSize="3xl" fontFamily="Work sans" fontWeight={"extrabold"}>
+        <Text fontSize="3xl"  fontFamily="Neucha" fontWeight={"extrabold"}>
           CHAT,EXPRESS,REPEAT
         </Text>
         <div>
           
           <Menu>
-            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
+            <MenuButton as={Button} bg="#f1e2e7" rightIcon={<ChevronDownIcon />}>
               <Avatar
                 size="sm"
                 cursor="pointer"
@@ -177,7 +178,7 @@ function SideDrawer() {
           <DrawerBody>
             <Box d="flex" pb={2}>
               <Input
-                placeholder="Search by name or email"
+                placeholder="Enter email or name"
                 mr={2}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

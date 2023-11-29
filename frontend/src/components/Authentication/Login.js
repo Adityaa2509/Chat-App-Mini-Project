@@ -77,6 +77,7 @@ const Login = () => {
         <Input
           value={email}
           type="email"
+          _placeholder={{ color: "black", fontStyle: "italic"}} 
           placeholder="Enter Your Email Address"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -88,14 +89,15 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type={show ? "text" : "password"}
+            _placeholder={{ color: "black", fontStyle: "italic"}}
             placeholder="Enter password"
           />
           <InputRightElement width="4.5rem">
     <Button h="1.75rem" size="sm" onClick={handleClick}>
       {show ? (
-        <Icon as={FaEyeSlash} boxSize={4} /> // Use the eye slash icon when content is shown
+        <Icon as={FaEyeSlash} boxSize={4} /> 
       ) : (
-        <Icon as={FaEye} boxSize={4} /> // Use the eye icon when content is hidden
+        <Icon as={FaEye} boxSize={4} /> 
       )}
     </Button>
   </InputRightElement>

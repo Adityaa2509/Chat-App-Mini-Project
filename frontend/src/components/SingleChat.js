@@ -15,7 +15,8 @@ import chat from "../animations/chat.gif";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; 
+
+const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -60,7 +61,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "Error Occurred!",
         description: "Failed to Load the Messages",
         status: "error",
         duration: 5000,
@@ -85,7 +86,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           "/api/message",
           {
             content: newMessage,
-            chatId: selectedChat,
+            chatId: selectedChat._id,
           },
           config
         );
@@ -93,7 +94,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setMessages([...messages, data]);
       } catch (error) {
         toast({
-          title: "Error Occured!",
+          title: "Error Occurred!",
           description: "Failed to send the Message",
           status: "error",
           duration: 5000,
@@ -111,8 +112,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
 
+    return () => {
+      socket.disconnect();
+    };
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchMessages();
@@ -122,43 +126,51 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]);
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    socket.on("message received", (newMessageReceived) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
-        selectedChatCompare._id !== newMessageRecieved.chat._id
+        selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
-        if (!notification.includes(newMessageRecieved)) {
-          setNotification([newMessageRecieved, ...notification]);
+        if (!notification.includes(newMessageReceived)) {
+          setNotification([newMessageReceived, ...notification]);
           setFetchAgain(!fetchAgain);
         }
       } else {
-        setMessages([...messages, newMessageRecieved]);
+        setMessages([...messages, newMessageReceived]);
       }
     });
-  });
+
+    return () => {
+      socket.off("message received");
+    };
+    // eslint-disable-next-line
+  }, [messages, notification, selectedChatCompare, fetchAgain, setFetchAgain]);
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
 
     if (!socketConnected) return;
 
-    if (!typing) {
-      setTyping(true);
-      socket.emit("typing", selectedChat._id);
-    }
-    let lastTypingTime = new Date().getTime();
-    var timerLength = 3000;
-    setTimeout(() => {
-      var timeNow = new Date().getTime();
-      var timeDiff = timeNow - lastTypingTime;
-      if (timeDiff >= timerLength && typing) {
-        socket.emit("stop typing", selectedChat._id);
-        setTyping(false);
+    if (e.target.value.trim() !== "") {
+      if (!typing) {
+        setTyping(true);
+        socket.emit("typing", selectedChat._id);
       }
-    }, timerLength);
-  };
-
-  return (
+      let lastTypingTime = new Date().getTime();
+      var timerLength = 3000;
+      setTimeout(() => {
+        var timeNow = new Date().getTime();
+        var timeDiff = timeNow - lastTypingTime;
+        if (timeDiff >= timerLength && typing) {
+          socket.emit("stop typing", selectedChat._id);
+          setTyping(false);
+        }
+      }, timerLength);
+    } else {
+      socket.emit("stop typing", selectedChat._id);
+      setTyping(false);
+    }
+  };  return (
     <>
       {selectedChat ? (
         <>
@@ -167,7 +179,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             pb={3}
             px={2}
             w="100%"
-            fontFamily="Work sans"
+            fontFamily="Neucha"
             d="flex"
             justifyContent={{ base: "space-between" }}
             alignItems="center"
@@ -201,7 +213,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             flexDir="column"
             justifyContent="flex-end"
             p={3}
-            bg="#E8E8E8"
+            bg="#FA8072"
             w="100%"
             h="100%"
             borderRadius="lg"
@@ -230,7 +242,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               {istyping ? (
                 <div>
                   <Lottie
-                    options={defaultOptions}
+                   options={defaultOptions}
                     // height={50}
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
@@ -240,9 +252,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <></>
               )}
               <Input
-                variant="filled"
-                bg="#E0E0E0"
-                placeholder="Enter a message.."
+                variant="flushed"
+                bg="#FA8072"
+                _placeholder={{ color: "black", fontStyle: "italic", fontWeight: "semibold" }}
+                placeholder="Words, please! 🌟..."
                 value={newMessage}
                 onChange={typingHandler}
               />
@@ -251,8 +264,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         </>
       ) : (
         // to get socket.io on same page
-        <Box d="flex" alignItems="center" justifyContent="center" h="100%">
-        <Box pl={"300px"}>
+        <Box
+          d="flex"
+          flexDirection={"column"}
+          alignItems="center"
+          justifyContent="center"
+          h="100%"
+        >
+          <Box>
             <img
               height="450"
               width="450"
@@ -261,7 +280,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               background="#f1e2e7"
             />
           </Box>
-          <Text fontSize="3xl" pb={3} fontFamily="Work sans">
+          <Text fontSize="3xl" pb={9} fontFamily="Neucha" >
             Click on a user to start chatting
           </Text>
         </Box>

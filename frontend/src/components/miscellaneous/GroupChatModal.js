@@ -65,7 +65,7 @@ const GroupChatModal = ({ children }) => {
     } catch (error) {
       toast({
         title: "Error Occured!",
-        description: "Failed to Load the Search Results",
+        description: "Failed to Load ",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -81,9 +81,9 @@ const GroupChatModal = ({ children }) => {
   const handleSubmit = async () => {
     if (!groupChatName || !selectedUsers) {
       toast({
-        title: "Please fill all the feilds",
+        title: "Please fill all the fields",
         status: "warning",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
         position: "top",
       });
@@ -107,20 +107,20 @@ const GroupChatModal = ({ children }) => {
       setChats([data, ...chats]);
       onClose();
       toast({
-        title: "New Group Chat Created!",
+        title: "New Group Created!",
         status: "success",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
     } catch (error) {
       toast({
-        title: "Failed to Create the Chat!",
+        title: "Failed to Create!",
         description: error.response.data,
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
     }
   };
@@ -138,20 +138,20 @@ const GroupChatModal = ({ children }) => {
             d="flex"
             justifyContent="center"
           >
-            Create Group Chat
+            Create Group 
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody d="flex" flexDir="column" alignItems="center">
             <FormControl>
               <Input
-                placeholder="Chat Name"
+                placeholder="Group Name"
                 mb={3}
                 onChange={(e) => setGroupChatName(e.target.value)}
               />
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Add Users eg: John, Piyush, Jane"
+                placeholder="Add Members"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               />
@@ -181,7 +181,7 @@ const GroupChatModal = ({ children }) => {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleSubmit} colorScheme="blue">
+            <Button onClick={handleSubmit} colorScheme="green">
               Create Chat
             </Button>
           </ModalFooter>

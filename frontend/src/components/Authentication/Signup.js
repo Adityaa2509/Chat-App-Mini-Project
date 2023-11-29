@@ -137,6 +137,7 @@ const Signup = () => {
       <FormControl id="first-name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
+           _placeholder={{ color: "black", fontStyle: "italic"}}
           placeholder="Enter Your Name"
           onChange={(e) => setName(e.target.value)}
         />
@@ -145,6 +146,7 @@ const Signup = () => {
         <FormLabel>Email Address</FormLabel>
         <Input
           type="email"
+          _placeholder={{ color: "black", fontStyle: "italic"}}
           placeholder="Enter Your Email Address"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -154,6 +156,7 @@ const Signup = () => {
         <InputGroup size="md">
           <Input
             type={show ? "text" : "password"}
+            _placeholder={{ color: "black", fontStyle: "italic"}}
             placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -173,6 +176,7 @@ const Signup = () => {
         <InputGroup size="md">
           <Input
             type={showc ? "text" : "password"}
+            _placeholder={{ color: "black", fontStyle: "italic"}}
             placeholder="Confirm password"
             onChange={(e) => setConfirmpassword(e.target.value)}
           />

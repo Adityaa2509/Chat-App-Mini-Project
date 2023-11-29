@@ -55,9 +55,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         title: "Error Occured!",
         description: "Failed to Load the Search Results",
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom-left",
+        position: "top",
       });
       setLoading(false);
     }
@@ -83,7 +83,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       );
 
       console.log(data._id);
-      // setSelectedChat("");
+      
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       setRenameLoading(false);
@@ -92,9 +92,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         title: "Error Occured!",
         description: error.response.data.message,
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
       setRenameLoading(false);
     }
@@ -104,11 +104,11 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const handleAddUser = async (user1) => {
     if (selectedChat.users.find((u) => u._id === user1._id)) {
       toast({
-        title: "User Already in group!",
+        title: "User Already a Member!",
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
       return;
     }
@@ -117,9 +117,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       toast({
         title: "Only admins can add someone!",
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
       return;
     }
@@ -148,9 +148,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         title: "Error Occured!",
         description: error.response.data.message,
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
       setLoading(false);
     }
@@ -162,9 +162,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       toast({
         title: "Only admins can remove someone!",
         status: "error",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
       return;
     }
@@ -240,7 +240,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               />
               <Button
                 variant="solid"
-                colorScheme="teal"
+                colorScheme="purple"
                 ml={1}
                 isLoading={renameloading}
                 onClick={handleRename}
@@ -250,7 +250,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Add User to group"
+                placeholder="Add Members"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               />
@@ -269,9 +269,21 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button onClick={() => handleRemove(user)} colorScheme="red">
-              Leave Group
-            </Button>
+          <Button
+  onClick={() => handleRemove(user)}
+  colorScheme="red"
+  _hover={{
+    transform: "scale(1.05)", // Scale up on hover
+    boxShadow: "xl", // Add a larger box shadow on hover
+    transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+  }}
+  _active={{
+    transform: "scale(0.95)", // Scale down when the button is pressed
+    transition: "transform 0.1s ease-in-out",
+  }}
+>
+  Leave Group
+</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

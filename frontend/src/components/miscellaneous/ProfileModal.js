@@ -26,12 +26,13 @@ const ProfileModal = ({ user, children }) => {
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent h="410px">
+        <ModalContent h="420px">
           <ModalHeader
             fontSize="40px"
-            fontFamily="Work sans"
+            fontFamily="Neucha"
             d="flex"
             justifyContent="center"
+            fontWeight={"extrabold"}
           >
             {user.name}
           </ModalHeader>
@@ -43,21 +44,36 @@ const ProfileModal = ({ user, children }) => {
             justifyContent="space-between"
           >
             <Image
-              borderRadius="full"
-              boxSize="150px"
-              src={user.pic}
-              alt={user.name}
+                borderRadius="full"
+  boxSize="150px"
+  src={user.pic}
+  alt={user.name}
+  boxShadow="lg"         
+  border="4px solid white" 
+  _hover={{
+    transform: "scale(2.5)",
+    transition: "transform 0.3s ease-in-out",
+  }}
             />
             <Text
-              fontSize={{ base: "28px", md: "30px" }}
-              fontFamily="Work sans"
+              fontSize={{ base: "32px", md: "34px" }}
+              fontWeight={"semibold"}
+            fontFamily="Neucha"
             >
               Email: {user.email}
             </Text>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
+  <Button
+    onClick={onClose}
+    colorScheme="gray"
+    variant="outline"
+    fontWeight="bold"
+    _hover={{ bg: "gray.700", color: "white" }}
+  >
+    Close
+  </Button>
+</ModalFooter>
         </ModalContent>
       </Modal>
     </>

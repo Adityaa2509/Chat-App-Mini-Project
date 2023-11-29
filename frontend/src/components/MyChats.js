@@ -51,7 +51,7 @@ const MyChats = ({ fetchAgain }) => {
       flexDir="column"
       alignItems="center"
       p={3}
-      bg="white"
+      bg="#f1e2e7"
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderWidth="1px"
@@ -60,7 +60,7 @@ const MyChats = ({ fetchAgain }) => {
         pb={3}
         px={3}
         fontSize={{ base: "28px", md: "30px" }}
-        fontFamily="Work sans"
+        fontFamily={"Neucha"}
         d="flex"
         w="100%"
         justifyContent="space-between"
@@ -70,10 +70,12 @@ const MyChats = ({ fetchAgain }) => {
         <GroupChatModal>
           <Button
             d="flex"
+            bg="#f1e2e7"
+            fontFamily={"Neucha"}
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
           >
-            New Group Chat
+            Create Group
           </Button>
         </GroupChatModal>
       </Box>
@@ -86,6 +88,7 @@ const MyChats = ({ fetchAgain }) => {
         h="100%"
         borderRadius="lg"
         overflowY="hidden"
+        backgroundColor="#FA8072"
       >
         {chats ? (
           <Stack overflowY="scroll">
@@ -93,10 +96,11 @@ const MyChats = ({ fetchAgain }) => {
               <Box
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                bg={selectedChat === chat ? "#43449c" : "#FAA0A0"}
                 color={selectedChat === chat ? "white" : "black"}
                 px={3}
                 py={2}
+                backdropFilter="blur( 3px )"
                 borderRadius="lg"
                 key={chat._id}
               >
@@ -107,11 +111,14 @@ const MyChats = ({ fetchAgain }) => {
                 </Text>
                 {chat.latestMessage && (
                   <Text fontSize="xs">
-                    <b>{chat.latestMessage.sender.name} : </b>
-                    {chat.latestMessage.content.length > 50
-                      ? chat.latestMessage.content.substring(0, 51) + "..."
-                      : chat.latestMessage.content}
-                  </Text>
+  <span style={{ fontWeight:600 }}>
+    {chat.latestMessage.sender.name} :
+  </span>{" "}
+  {chat.latestMessage.content.length > 50
+    ? chat.latestMessage.content.substring(0, 51) + "..."
+    : chat.latestMessage.content}
+</Text>
+
                 )}
               </Box>
             ))}
