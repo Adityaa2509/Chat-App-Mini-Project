@@ -36,17 +36,18 @@ const Signup = () => {
       setPicLoading(false);
       return;
     }
-    if (password !== confirmpassword) {
-      toast({
-        title: "Passwords and Confirm Password are not Same",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
-      return;
-    }
-    console.log(name, email, password, pic);
+    // if (password !== confirmpassword) {
+    //   toast({
+    //     title: "Passwords and Confirm Password are not Same",
+    //     status: "warning",
+    //     duration: 5000,
+    //     isClosable: true,
+    //     position: "top",
+    //   });
+    //   history.push("/");
+    //   return;
+    // }
+    console.log(name, email, password,confirmpassword,pic);
     try {
       const config = {
         headers: {
@@ -59,6 +60,7 @@ const Signup = () => {
           name,
           email,
           password,
+          confirmpassword,
           pic,
         },
         config

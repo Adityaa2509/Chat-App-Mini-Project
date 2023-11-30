@@ -1,10 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
+const bcrypt = require("bcrypt")
 
-//@description     Get or Search all users
 //@route           GET /api/user?search=
-//@access          Public
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
@@ -19,15 +18,20 @@ const allUsers = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
-//@description     Register new user
 //@route           POST /api/user/
-//@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password,confirmpassword
+    ,pic } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password ||!confirmpassword) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
+  }
+  if (password !== confirmpassword) {
+    res.status(400);
+    console.log("chala to sahi bhai")
+    throw new Error("Password and Confirm Password Do not Match");
+
   }
 
   const userExists = await User.findOne({ email });
@@ -36,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User already exists");
   }
-
+  
   const user = await User.create({
     name,
     email,
